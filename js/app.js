@@ -1,21 +1,18 @@
-// LOGIN SYSTEM
+// LOGIN
 function register() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     localStorage.setItem("userEmail", email);
     localStorage.setItem("userPassword", password);
-
-    alert("Account Created!");
     window.location.href = "dashboard.html";
 }
 
 function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    if (email === localStorage.getItem("userEmail") &&
-        password === localStorage.getItem("userPassword")) {
+    if (
+        document.getElementById("email").value === localStorage.getItem("userEmail") &&
+        document.getElementById("password").value === localStorage.getItem("userPassword")
+    ) {
         window.location.href = "dashboard.html";
     } else {
         alert("Invalid Credentials");
@@ -37,27 +34,23 @@ const subjects = {
 let currentQuestions = [];
 let currentIndex = 0;
 let score = 0;
-let timerInterval;
-let timeLeft = 20;
 
 function startQuiz(subject) {
     currentQuestions = subjects[subject];
     currentIndex = 0;
     score = 0;
     loadQuestion();
-    startTimer();
 }
 
 function loadQuestion() {
     const q = currentQuestions[currentIndex];
     document.getElementById("question").innerText = q.question;
-
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = "";
 
     q.options.forEach(option => {
         const div = document.createElement("div");
-        div.classList.add("option");
+        div.className = "option";
         div.innerText = option;
         div.onclick = () => checkAnswer(option);
         optionsDiv.appendChild(div);
@@ -74,33 +67,12 @@ function nextQuestion() {
     currentIndex++;
     if (currentIndex < currentQuestions.length) {
         loadQuestion();
-        resetTimer();
     } else {
-        finishQuiz();
+        document.getElementById("question").innerText = "Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.getElementById("score").innerText = "Score: " + score;
+        saveScore(score);
     }
-}
-
-function finishQuiz() {
-    document.getElementById("question").innerText = "Quiz Completed!";
-    document.getElementById("options").innerHTML = "";
-    document.getElementById("score").innerText = "Your Score: " + score;
-    saveScore(score);
-}
-
-function startTimer() {
-    timeLeft = 20;
-    timerInterval = setInterval(() => {
-        document.getElementById("timer").innerText = "Time Left: " + timeLeft;
-        timeLeft--;
-        if (timeLeft < 0) {
-            nextQuestion();
-        }
-    }, 1000);
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-    startTimer();
 }
 
 // LEADERBOARD
@@ -116,7 +88,9 @@ function loadLeaderboard() {
     scores.sort((a,b)=>b-a);
 
     const leaderboard = document.getElementById("leaderboard");
-    leaderboard.innerHTML = scores.map(s => `<p>Score: ${s}</p>`).join("");
+    if(leaderboard){
+        leaderboard.innerHTML = scores.map(s => `<p>Score: ${s}</p>`).join("");
+    }
 }
 
 loadLeaderboard();
