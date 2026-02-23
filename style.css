@@ -2,11 +2,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* COLOR VARIABLES */
+:root {
+    --green: #16a34a;
+    --yellow: #fde047;
+    --orange: #f97316;
+    --pink: #ec4899;
+    --dark: #1f2937;
 }
 
 body {
-    background: linear-gradient(135deg, #16a34a, #fde047, #ec4899);
+    background: linear-gradient(135deg, var(--green), var(--yellow), var(--pink));
     min-height: 100vh;
 }
 
@@ -17,7 +26,7 @@ body {
     align-items: center;
     padding: 20px 40px;
     background: rgba(0,0,0,0.2);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
 }
 
 .logo {
@@ -31,19 +40,39 @@ body {
     text-decoration: none;
     color: white;
     font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--yellow);
 }
 
 .btn-orange {
-    background: #f97316;
-    padding: 10px 15px;
-    border-radius: 8px;
+    background: var(--orange);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-orange:hover {
+    transform: scale(1.05);
 }
 
 .btn-white {
     background: white;
-    color: #ec4899;
-    padding: 10px 15px;
-    border-radius: 8px;
+    color: var(--pink);
+    padding: 10px 18px;
+    border-radius: 10px;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-white:hover {
+    transform: scale(1.05);
 }
 
 /* HERO */
@@ -51,10 +80,11 @@ body {
     text-align: center;
     padding: 120px 20px;
     color: white;
+    animation: fadeIn 1.5s ease-in;
 }
 
 .hero h1 {
-    font-size: 48px;
+    font-size: 50px;
 }
 
 .hero h2 {
@@ -66,41 +96,75 @@ body {
     margin-top: 30px;
 }
 
-.hero-buttons a {
-    margin: 10px;
-}
-
 /* FEATURES */
 .features {
     background: white;
     padding: 60px 20px;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-radius: 40px 40px 0 0;
     margin-top: 50px;
 }
 
 .features h2 {
     text-align: center;
     margin-bottom: 40px;
+    color: var(--dark);
 }
 
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
 }
 
 .card {
     background: linear-gradient(135deg, #bbf7d0, #fde68a, #fbcfe8);
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
     text-align: center;
     font-weight: bold;
-    transition: 0.3s;
+    transition: 0.4s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.03);
+}
+
+/* INPUTS */
+input {
+    padding: 12px;
+    margin: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* QUIZ */
+.quiz-container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 40px;
+}
+
+.option {
+    background: var(--yellow);
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: var(--orange);
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
